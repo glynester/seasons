@@ -18,22 +18,27 @@ class App extends React.Component {
       err=>this.setState({ errorMessage: err.message })
     ); 
   }
-  componentDidUpdate(){
-    console.log("component rerendered!!!")
-  }
-  render(){
+
+  renderContent(){
     if (this.state.errorMessage && !this.state.lat){
       return <div>Error: {this.state.errorMessage}</div>
     }   
     if (!this.state.errorMessage && this.state.lat){
-      // return <div>Latitude: {this.state.lat} </div>
       return <SeasonDisplay lat={this.state.lat}/>
     } 
     return <Spinner message="Please accept location permission" />;
+  }
+  
+  render(){
+    return (
+    <div className="xyzabc zyxcba">
+      {this.renderContent()}
+    </div>
+    );
   }
 }
 
 ReactDOM.render(
   <App />,
   document.querySelector('#root')
-)
+);
