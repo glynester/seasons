@@ -1,3 +1,4 @@
+import './SeasonDisplay.css';
 import React from 'react';
 
 // Extract as much logic out of functional components as possible
@@ -20,10 +21,11 @@ const SeasonDisplay=(props)=>{
   const season = getSeason(props.lat, new Date().getMonth());
   const {iconName, text}=seasonConfig[season];
   return (
-  <div>
-    <i className={`${iconName} icon`}/>
+    // Note pattern that top div has same class name as component
+  <div className={`season-display ${season}`}>
+    <i className={`icon-left massive ${iconName} icon`}/>
     <h1>{text}</h1>
-    <i className={`${iconName} icon`}/>
+    <i className={`icon-right massive ${iconName} icon`}/>
   </div>
   );
 }
