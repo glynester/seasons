@@ -9,14 +9,22 @@ class App extends React.Component {
   //   this.state={ lat: null, errorMessage: '' };
   // }
 
-  state={lat:null, errorMessage: '' };
+  state={lat:null, lon:null, errorMessage: '' };
 
   componentDidMount(){
     console.log("component did mount!!!");
-    window.navigator.geolocation.getCurrentPosition(
-      position=>this.setState({lat:position.coords.latitude}),
-      err=>this.setState({ errorMessage: err.message })
-    ); 
+    if (window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(
+        position=>{
+          console.log("Latitude: ", position.coords.latitude);
+          console.log("Longitude: ", position.coords.longitude);
+          this.setState({lat:position.coords.latitude, lon:position.coords.longitude})
+        },
+        err=>this.setState({ errorMessage: err.message })
+      ); 
+  } else {
+    console.log('Geolocation is not supported by this browser.');
+  }
   }
 
   renderContent(){
@@ -24,7 +32,7 @@ class App extends React.Component {
       return <div>Error: {this.state.errorMessage}</div>
     }   
     if (!this.state.errorMessage && this.state.lat){
-      return <SeasonDisplay lat={this.state.lat}/>
+      return <SeasonDisplay lat={this.state.lat}  lon={this.state.lon}/>
     } 
     return <Spinner message="Please accept location permission" />;
   }

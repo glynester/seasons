@@ -2,8 +2,8 @@ import react from 'react';
 // Better to make this a new component rather than fit more JSX into existing components.
 const Spinner=(props)=>{
   return (
-     <div class="ui active dimmer">
-      <div class="ui massive text loader">{props.message}</div>
+     <div className="ui active dimmer">
+      <div className="ui massive text loader">{props.message}</div>
     </div>
   );
 };
